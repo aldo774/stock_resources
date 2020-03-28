@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+from application.apps.drf.apps import DrfConfig
 from application.apps.stock_resource.apps import StockResource
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    DrfConfig.name,
     StockResource.name
 
 ]
