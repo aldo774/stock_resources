@@ -19,6 +19,15 @@ services:
       - 8000:8000
     depends_on:
       - db
+  cron:
+    image: stockresources_python:latest
+    environment:
+      - DJANGO_SETTINGS_MODULE=application.settings.prod
+    volumes:
+      - .:/code
+    entrypoint: sh /code/docker/prod/cron/entrypoint.sh
+    depends_on:
+      - python
   nginx:
     # image: nginx
     build:
