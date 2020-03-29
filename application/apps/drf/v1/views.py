@@ -21,6 +21,19 @@ def get_stocks(request):
     return JsonResponse({'data': stock_info})
 
 
+@api_view(["GET"])
+def get_stock(request, stock):
+    stock_info = []
+    stock_rec = Stock.objects.filter(name=stock)[0]
+    data = {
+        'name': stock,
+        **(json.loads(stock_rec.resources_value)
+        if stock_rec.resources_value else {})
+    }
+
+    return JsonResponse(data)
+
+
 @api_view(["post"])
 def post_stocks(request):
     data = request.data
