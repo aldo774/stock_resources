@@ -38,7 +38,7 @@ class Command(BaseCommand):
 
             for resource in stock.site.resources.all():
                 res = tree.xpath(resource.xpath)
-                values[resource.label] = res[0] if res else ''
+                values[resource.label] = res[0].strip() if res else ''
 
             stock.resources_value = values
             stock.save()
