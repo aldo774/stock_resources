@@ -25,6 +25,7 @@ class Resource(models.Model):
 class Stock(models.Model):
     name = models.CharField(max_length=10)
     resources_value = models.TextField(blank=True)
+    write_date = models.DateTimeField(auto_now=True)
     site = models.ForeignKey(
         Site,
         on_delete= models.CASCADE,
