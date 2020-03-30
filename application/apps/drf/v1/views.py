@@ -14,6 +14,7 @@ def get_stocks(request):
     for stock in stocks:
         stock_info.append({
             'name': stock.name,
+            'write_date': stock.write_date,
             **(json.loads(stock.resources_value)
                 if stock.resources_value else {})
         })
@@ -26,7 +27,8 @@ def get_stock(request, stock):
     stock_info = []
     stock_rec = Stock.objects.filter(name=stock)[0]
     data = {
-        'name': stock,
+        'name': stock_rec.name,
+        'write_date': stock_rec.write_date,
         **(json.loads(stock_rec.resources_value)
         if stock_rec.resources_value else {})
     }
