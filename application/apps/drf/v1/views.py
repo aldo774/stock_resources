@@ -18,6 +18,7 @@ def get_stocks(request):
             **(json.loads(stock.resources_value)
                 if stock.resources_value else {})
         })
+    stock_info.sort(key=lambda stock: stock.get('name'))
     
     return JsonResponse({'data': stock_info})
 
