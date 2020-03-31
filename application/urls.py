@@ -1,4 +1,5 @@
 from application.apps.drf.v1.views import get_stock
+from application.apps.drf.v1.views import get_stock_serie
 from application.apps.drf.v1.views import get_stocks
 from application.apps.drf.v1.views import post_stocks
 
@@ -11,5 +12,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/get_stocks/', get_stocks),
     path('api/v1/get_stock/<str:stock>/', get_stock),
+    path('api/v1/get_stock_serie/<str:stock>/', get_stock_serie),
     path('api/v1/post_stocks/', post_stocks),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
