@@ -57,3 +57,15 @@ class Stock(StandardModelMixin):
 
     def __str__(self):
         return '%s - %s' % (self.name, self.site.name)
+
+
+class StockSerieItem(StandardModelMixin):
+    resources_value = JSONField(blank=True)
+    stock = models.ForeignKey(
+        Stock,
+        on_delete= models.CASCADE,
+        related_name='stock_serie_items'
+    )
+
+    def __str__(self):
+        return '%s - %s' % (self.stock.name, self.create_date)
