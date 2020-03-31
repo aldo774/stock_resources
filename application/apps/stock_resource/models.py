@@ -34,11 +34,13 @@ class Site(StandardModelMixin):
 class Resource(StandardModelMixin):
     xpath = models.TextField()
     label = models.CharField(max_length=100)
+    sequence = models.IntegerField(blank=True)
     site = models.ForeignKey(
         Site,
         on_delete= models.CASCADE,
         related_name='resources'
     )
+    xpath = models.TextField()
 
     def __str__(self):
         return '%s - %s' % (self.label, self.site.name)

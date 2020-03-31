@@ -36,7 +36,7 @@ class Command(BaseCommand):
             tree = html.fromstring(page.content)
             values = {}
 
-            for resource in stock.site.resources.all():
+            for resource in stock.site.resources.all().order_by('sequence'):
                 res = tree.xpath(resource.xpath)
                 values[resource.label] = res[0].strip() if res else ''
 
