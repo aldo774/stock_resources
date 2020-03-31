@@ -10,13 +10,14 @@ class Site(models.Model):
 
 
 class Resource(models.Model):
-    xpath = models.TextField()
     label = models.CharField(max_length=100)
+    sequence = models.IntegerField(blank=True)
     site = models.ForeignKey(
         Site,
         on_delete= models.CASCADE,
         related_name='resources'
     )
+    xpath = models.TextField()
 
     def __str__(self):
         return '%s - %s' % (self.label, self.site.name)
@@ -25,12 +26,12 @@ class Resource(models.Model):
 class Stock(models.Model):
     name = models.CharField(max_length=10)
     resources_value = models.TextField(blank=True)
-    write_date = models.DateTimeField(auto_now=True)
     site = models.ForeignKey(
         Site,
         on_delete= models.CASCADE,
         related_name='stocks'
     )
+    write_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '%s - %s' % (self.name, self.site.name)

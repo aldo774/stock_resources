@@ -14,9 +14,9 @@ def get_stocks(request):
     for stock in stocks:
         stock_info.append({
             'name': stock.name,
-            'write_date': stock.write_date,
             **(json.loads(stock.resources_value)
-                if stock.resources_value else {})
+                if stock.resources_value else {}),
+            'write_date': stock.write_date
         })
     stock_info.sort(key=lambda stock: stock.get('name'))
     
