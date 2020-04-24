@@ -7,3 +7,4 @@ __pycache__/
 **/migrations/*.py
 !**/migrations/__init__.py
 *.log
+**/db/custom_postgres.conf
