@@ -38,18 +38,25 @@ def get_stock(request, stock):
 
 
 @api_view(["GET"])
-def get_stock_serie(request, stock):
-    stock_info = []
-    stock_rec = Stock.objects.filter(name=stock)[0]
-    data = {
-        'stock': stock_rec.name,
-        'serie': [{
-            **json.loads(s.resources_value), 
-            'create_date': s.create_date
-            } for s in stock_rec.stock_serie_items.all()]
+def get_stocks_serie(request, stocks):
+    response = {
+        "result": []
     }
+    stock_list = stocks.split(",")
+    stock_info = []
 
-    return JsonResponse(data)
+    for stk in stock_list:
+        stock_rec = Stock.objects.filter(name=stk)[0]
+        data = {
+            'stock': stock_rec.name,
+            'serie': [{
+                **json.loads(s.resources_value), 
+                'create_date': s.create_date
+                } for s in stock_rec.stock_serie_items.all()]
+        }
+        response["result"].append(data)
+
+    return JsonResponse(response)
 
 
 @api_view(["post"])

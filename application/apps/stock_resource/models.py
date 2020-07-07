@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 
 class StandardModelMixin(models.Model):
@@ -48,7 +49,7 @@ class Resource(StandardModelMixin):
 
 class Stock(StandardModelMixin):
     name = models.CharField(max_length=10)
-    resources_value = models.TextField(blank=True)
+    resources_value = JSONField(blank=True)
     site = models.ForeignKey(
         Site,
         on_delete= models.CASCADE,
