@@ -17,5 +17,6 @@ router.register("stock-serie-items", views.StockSerieItemViewSet, basename="stoc
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/", include(router.urls)),
+    path("api/v1/get-serie-stocks", views.get_serie_stocks),
     path("api/auth-token/", drf_auth_views.obtain_auth_token),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
