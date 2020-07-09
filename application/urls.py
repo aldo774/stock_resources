@@ -7,6 +7,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.authtoken import views as drf_auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,4 +15,5 @@ urlpatterns = [
     path('api/v1/get_stock/<str:stock>/', get_stock),
     path('api/v1/get_stocks_serie/<str:stocks>/', get_stocks_serie),
     path('api/v1/post_stocks/', post_stocks),
+    path("api/auth-token/", drf_auth_views.obtain_auth_token),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
