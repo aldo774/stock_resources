@@ -3,8 +3,8 @@ services:
   db:
     image: postgres:10.1-alpine
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
-      - ./docker/prod/db/custom_postgres.conf:/var/lib/postgresql/data/postgresql.conf
+      - postgres_data:/var/lib/postgresql/stockresource/data/
+      - ./docker/prod/db/custom_postgres.conf:/var/lib/postgresql/stockresource/data/postgresql.conf
   python:
     build:
       context: .
