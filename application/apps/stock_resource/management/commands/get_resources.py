@@ -17,6 +17,13 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
     help = "Gets stock resources"
 
+    def turning_float(value):
+    try:
+        string_float = value.replace(",", ".").replace("%", "")
+        return float(string_float)
+    except ValueError:
+        return value
+
     def handle(self, *args, **options):
         logger.info("Getting resources")
         stocks = Stock.objects.all()
@@ -29,9 +36,13 @@ class Command(BaseCommand):
             else:
                 url = stock.site.url + stock.name
 
-            try:            
+            try:
+                headers = {
+                    'User-Agent': ('Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) '
+                    'Gecko/20100101 Firefox/50.0')
+                }
                 logger.info(f"Accessing {stock.name} resources...")
-                page = requests.get(url)
+                page = requests.get(url, headers=headers)
 
                 if page.status_code not in (200, 201):
                     logger.info(f"Content from {stock.name} denied")
@@ -44,7 +55,8 @@ class Command(BaseCommand):
 
             for resource in stock.site.resources.all().order_by('sequence'):
                 res = tree.xpath(resource.xpath)
-                values[resource.label] = res[0].strip() if res else ''
+                value = res[0].strip() if res else ''
+                values[resource.label] = turning_float(value)
 
             stock.resources_value = values
             stock.save()
