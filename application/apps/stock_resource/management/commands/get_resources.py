@@ -17,12 +17,12 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
     help = "Gets stock resources"
 
-    def turning_float(value):
-    try:
-        string_float = value.replace(",", ".").replace("%", "")
-        return float(string_float)
-    except ValueError:
-        return value
+    def turning_float(self, value):
+        try:
+            string_float = value.replace(",", ".").replace("%", "")
+            return float(string_float)
+        except ValueError:
+            return value
 
     def handle(self, *args, **options):
         logger.info("Getting resources")
@@ -56,7 +56,7 @@ class Command(BaseCommand):
             for resource in stock.site.resources.all().order_by('sequence'):
                 res = tree.xpath(resource.xpath)
                 value = res[0].strip() if res else ''
-                values[resource.label] = turning_float(value)
+                values[resource.label] = self.turning_float(value)
 
             stock.resources_value = values
             stock.save()
